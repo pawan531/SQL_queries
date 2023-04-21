@@ -60,6 +60,22 @@ where Brand not in ( select Brand from product_cmp where flag=0)
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+# problem statement:Udan want to know in particular year it started operation in how many new cities.
+
+![image](https://user-images.githubusercontent.com/71668492/233621440-acb7df86-3038-44a7-a395-1c2aa4799b93.png)
+
+select * from business_city;
+with cte2 as (
+select datepart(year,business_date)as bus_year,city_id from 
+business_city
+)
+select c1.bus_year,count(case when c2.city_id is null then c1.city_id end)as no_of_newcity_operation from cte2 c1
+left join cte2 c2
+on c1.bus_year>c2.bus_year and c1.city_id=c2.city_id
+group by c1.bus_year
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
 
 
 
