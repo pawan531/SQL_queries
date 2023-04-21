@@ -21,3 +21,22 @@ inner join first_visit fv on co.customer_id=fv.customer_id
 group by order_date
 
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#problem statement: Do the trasformation for below table:
+
+![image](https://user-images.githubusercontent.com/71668492/233618548-a5520c22-ee0b-45b5-9fda-79d5bba12e50.png)
+
+Select * from icc_worldcup;
+select team_name,count(*) as no_of_matches_played,sum(winflag) as no_of_win,count(*)-sum(winflag) as no_of_loss
+from
+(select team1 as team_name,case when team1=Winner then 1 else 0 end as winflag 
+from icc_worldcup
+union all
+select team2 as team_name,case when team2=Winner then 1 else 0 end as winflag 
+from icc_worldcup
+) A
+group by team_name
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
