@@ -77,5 +77,21 @@ group by c1.bus_year
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
 
+problem statement:Uber wants calculate no of profit ride each driver make(Profit rides is nothing if drivers start the ride from same endpoint).
+
+![image](https://user-images.githubusercontent.com/71668492/233622852-40e5c723-9799-4059-a2ec-f5b01d0ae2a9.png)
+
+select * from drivers;
+with cte as
+(
+select *,
+case when LAG(end_loc,1,end_loc) over(partition by id order by start_time)=start_loc then 1 else 0 end as Profit_ride from drivers
+  )
+  select id,count(id) as total_ride,sum(Profit_ride)as profit_ride from cte
+  group by id
+  
+  
+  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 
