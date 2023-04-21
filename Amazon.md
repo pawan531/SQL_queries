@@ -93,5 +93,27 @@ case when LAG(end_loc,1,end_loc) over(partition by id order by start_time)=start
   
   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+problem Statement:Find out Employee which are In the hospital
+
+![image](https://user-images.githubusercontent.com/71668492/233625905-c1a4df43-24d8-474a-b11d-c9b48c110d5d.png)
+
+
+select * from hospital;
+
+with emp_latest_time as
+(
+select emp_id,max(time) as latest_time from hospital
+group by emp_id
+)
+select h.emp_id from hospital h
+ join emp_latest_time e
+on h.emp_id=e.emp_id
+and h.time>=e.latest_time
+where case when action='in' then 1 else 0 end=1
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++==
+
+
 
 
