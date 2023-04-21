@@ -40,3 +40,26 @@ group by team_name
 
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+#problem statement: select brands whose sales increase every year
+
+![image](https://user-images.githubusercontent.com/71668492/233619632-827aa35f-4ee3-4ffe-b782-2701b2e623fa.png)
+
+select * from brands_que;
+
+with product_cmp as
+(
+select *,
+case when amount<lead (amount,1,amount+1) over (partition by Brand order by year ) then 1
+else 0 end as flag
+from brands_que
+)
+select * from brands_que
+where Brand not in ( select Brand from product_cmp where flag=0)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
