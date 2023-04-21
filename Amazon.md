@@ -95,7 +95,8 @@ case when LAG(end_loc,1,end_loc) over(partition by id order by start_time)=start
 
 problem Statement:Find out Employee which are In the hospital
 
-![image](https://user-images.githubusercontent.com/71668492/233625905-c1a4df43-24d8-474a-b11d-c9b48c110d5d.png)
+![image](https://user-images.githubusercontent.com/71668492/233626176-a12ac94e-a045-4c10-b9db-a8b0dc2bfb1c.png)
+
 
 
 select * from hospital;
